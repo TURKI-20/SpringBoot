@@ -11,7 +11,7 @@ import lombok.Data;
 public class Student {
 
 
-    @NotEmpty(message = "please enter id!")
+    @NotNull(message = "please enter id!")
     private Integer id;
 
     @NotEmpty(message = "please enter name!")
