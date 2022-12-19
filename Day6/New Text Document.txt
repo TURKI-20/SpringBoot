@@ -1,0 +1,55 @@
+create database Store;
+
+USE Store;
+create table Countries(
+ code int primary key ,
+ name varchar(20) unique ,
+ continent_name varchar(20) not null
+);
+
+create table users(
+ id int primary key ,
+ full_name varchar(20),
+ email varchar(20) unique ,
+ gender char(1) check (gender in ('M','F')),
+ date_of_birth varchar(15),
+ created_at datetime default CURRENT_TIMESTAMP,
+ Country_code int,
+ foreign key (Country_code) references Countries(code)
+);
+
+create table Orders(
+    id int primary key ,
+    user_id int,
+    status varchar(15) check (status in ('start','finish')),
+    created_at datetime default CURRENT_TIMESTAMP,
+    foreign key (user_id) references users(id)
+);
+
+create table Products(
+    id int primary key ,
+    name varchar(10) not null ,
+    price int default 0,
+    status varchar(10) check (status in ('valid','expired')),
+    created_at datetime default CURRENT_TIMESTAMP
+);
+
+create table Order_Products(
+    order_id int primary key ,
+    product_id int,
+    quantity int default 0,
+    foreign key (order_id) references orders(id),
+    foreign key (product_id) references products(id)
+);
+
+insert into countries values (10,'USA','KSA');
+
+insert into users values (16,'Turki','Turki-fahad1996@','M','1996',null,10);
+
+insert into orders values (11,16,'start',null);
+
+insert into products values (13,'Egg',10,'valid',null);
+
+update products set status = 'expired' where id ='13';
+
+delete from products where id = '15';
